@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  #search-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  
+  #search-box {
+    flex-grow: 1;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+  }
+  
+  #movie-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  
+  .movie {
+    margin: 1rem;
+    flex-basis: calc(25% - 2rem);
+  }
+  
+  .movie img {
+    width: 100%;
+    height: auto;
+  }
+  
+  #recommendation-container {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin-top: 2rem;
+  }
+  
+  #recommendation-container h2 {
+    margin-top: 0;
+  }
