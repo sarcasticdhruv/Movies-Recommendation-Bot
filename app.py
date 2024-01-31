@@ -1,8 +1,8 @@
 import pandas as pd
 import requests
-from surprise import Dataset
-from surprise import KNNBasic
-from surprise.model_selection import cross_validate
+from implicit._nearest_neighbours import NNDescent
+from implicit.evaluation import precision_at_k
+from implicit.datasets import movielens
 
 # Define a function to fetch movie data from the OMDB API
 def fetch_movie_data(movie_ids):
@@ -25,18 +25,14 @@ def fetch_movie_data(movie_ids):
 movie_ids = list(range(1, 1001))
 movie_data = fetch_movie_data(movie_ids)
 
-# Create a Surprise dataset
-data = Dataset.load_from_df(pd.DataFrame(movie_data), reader=Dataset.Reader(rating_scale=(1, 5)))
+# Create a dataset using the MovieLens 100k dataset
+data = movielens.load_movielens_100k()
 
-# Use the KNNBasic algorithm
-algo = KNNBasic()
-
-# Cross-validate the algorithm
-cross_validate(algo, data, measures=["RMSE", "MAE"], cv=3, verbose=True)
+# Use the NNDescent algorithm
+algo = NNDescent()
 
 # Train the algorithm on the entire dataset
-trainset = data.build_full_trainset()
-algo.fit(trainset)
+algo.fit(data.build_full_trainset())
 
 # Get recommendations for a user
 user_id = 5
@@ -50,9 +46,13 @@ user_ratings = pd.DataFrame({"userId": [user_id] * len(movie_data), "movieId": l
 unrated_movie_ids = set(movie_data["movieId"]).difference(set(user_ratings["movieId"]))
 
 # Get recommendations for the user
-recommendations = algo.predict(user_id, unrated_movie_ids)
-recommendations = pd.DataFrame(recommendations, columns=["movieId", "rating"])
-recommendations["title"] = movie_data["title"]
-recommendations = recommendations.sort_values(by="rating", ascending=False)[:num_recommendations]
+user_item_matrix = data.build_user_item_matrix()
+user_item_matrix[user_id] = user_ratings["rating"].values
+recommendations = algo.recommend(user_id, user_item_matrix[user_id], N=num_recommendations)
+
+# Convert the recommendations to a pandas DataFrame
+recommendations = pd.DataFrame(recommendations, columns=["movieId", "rating"]).set_index("movieId")
+recommendations["title"] = movie_data.set_index("movieId")["title"]
+recommendations = recommendations.reset_index().sort_values(by="rating", ascending=False)
 
 print(recommendations)
