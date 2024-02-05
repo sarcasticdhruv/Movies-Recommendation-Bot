@@ -15,11 +15,11 @@ def fetch_movie_data(movie_ids):
         data = response.json()
         movies = []
         for movie in data["Search"]:
-            movie_data =(
+            movie_data ={
                 "movieId": int(movie["imdbID"].split("t")[1]),
                 "title": movie["Title"],
                 "year": int(movie["Year"][1:]),
-            )
+            }
             movies.append(movie_data)
     return movies
 
