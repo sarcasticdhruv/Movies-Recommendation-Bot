@@ -29,6 +29,17 @@ The Movie Recommendation Bot is a Python-based recommendation system that sugges
 - **Collaborative Filtering**: Utilizes collaborative filtering techniques to recommend movies based on user preferences.
 - **Surprise Library**: Integrates with the Surprise library, which provides various recommendation algorithms such as SVD, KNN, etc.
 
+## Algorithms and Models
+- **Collaborative Filtering**: Utilizes collaborative filtering techniques to recommend movies based on user preferences.
+- **Surprise Library**: Integrates with the Surprise library, which provides various recommendation algorithms such as SVD, KNN, etc.
+
+## Project Structure
+- `bot.py`: The main Python script that runs the recommendation bot.
+- `templates/`: Contains the HTML templates for the user interface.
+- `static/`: Contains the CSS and JavaScript files for the user interface.
+- `models/`: Contains the Surprise models and algorithms.
+
+
 ## Contributing
 Contributions are welcome! If you'd like to contribute to the project, please follow these steps:
 1. Fork the repository.
