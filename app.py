@@ -10,7 +10,7 @@ from IPython.display import display
 def fetch_movie_data(movie_ids):
     api_key = "your_omdb_api_key_here"
     base_url = "http://www.omdbapi.com/"
-    params = {"apikey": api_key, "i": ",".join(map(str, movie_ids))
+    params = {"apikey": api_key, "i": ",".join(map(str, movie_ids))}
     with requests.get(base_url, params=params) as response:
         data = response.json()
         movies = []
