@@ -1,26 +1,34 @@
-<!DOCTYPE html
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0",
-  <title>Movies Recommendation</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="scripts.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Movie Recommendation</title>
 </head>
 <body>
-  <header>
-    <h1>Movies Recommendation</h1>
-    <form id="search-form">
-      <input type="text" id="search-box" placeholder="Search for a movie...">
-      <button type="submit">Search</button>
-    </form>
-  </header>
-  <main>
-    <section id="movie-container"></section>
-    <section id="recommendation-container"></section>
-  </main>
-  <footer>
-    <p>&copy; 2023 Movies Recommendation</p>
-  </footer>
+    <header>
+        <h1>Movie Recommendation</h1>
+        <button id="random-movie-btn">Random Movie</button>
+        <input type="text" id="search-input" placeholder="Search by mood or keyword">
+    </header>
+    <main>
+        <section id="register-section">
+            <h2>Register</h2>
+            <p>Register to get the algo figure what you wanna watch</p>
+            <button id="register-btn">Register</button>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2022 Movie Recommendation. All rights reserved.</p>
+            <ul>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Use</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
