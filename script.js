@@ -18,6 +18,10 @@ searchForm.addEventListener("submit", async (e) => {
 
   searchBox.value = "";
 
+  // Show loading state
+  movieContainer.innerHTML = "<p>Loading movies...</p>";
+  recommendationContainer.innerHTML = "<p>Loading recommendations...</p>";
+
   try {
     const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchTerm}`);
     const data = await response.json();
@@ -30,7 +34,14 @@ searchForm.addEventListener("submit", async (e) => {
     searchHistory.push(searchTerm);
     saveSearchHistory();
   } catch (error) {
-    alert(error.message);
+    movieContainer.innerHTML = `<p>Error: ${error.message}</p>`;
+  }
+
+  try {
+    const recommendations = getSimilarMovies(searchTerm);
+    displayRecommendations(recommendations);
+  } catch (error) {
+    recommendationContainer.innerHTML = `<p>Error: ${error.message}</p>`;
   }
 });
 
@@ -49,10 +60,8 @@ function displayMovies(movies) {
   });
 }
 
-function displayRecommendations() {
+function displayRecommendations(recommendations) {
   recommendationContainer.innerHTML = "";
-
-  const recommendations = getSimilarMovies(searchHistory[searchHistory.length - 1]);
 
   if (recommendations.length === 0) {
     const noRecommendations = document.createElement("p");
@@ -75,6 +84,7 @@ function displayRecommendations() {
 
 function getSimilarMovies(movie) {
   // This is a placeholder function. You can replace it with your own algorithm.
+  // For now, we will consider movies in the search history as similar to the latest search query.
   return searchHistory.filter((item) => item !== movie).slice(0, 10);
 }
 
@@ -91,4 +101,3 @@ function loadSearchHistory() {
 }
 
 loadSearchHistory();
-displayRecommendations();
